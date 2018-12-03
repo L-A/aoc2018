@@ -1,3 +1,6 @@
+const {Start, End} = require('./lib/performance')
+
+Start()
 const input = require('fs').readFileSync("./inputs/day1.txt").toString()
 const steps = input.split(/\n/)
 
@@ -22,3 +25,4 @@ while (matched == null) {
 
 console.log("Final frequency: " + final)
 console.log("First match: " + matched)
+End()
