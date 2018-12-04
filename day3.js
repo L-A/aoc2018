@@ -1,16 +1,12 @@
 const {Start, End} = require('./lib/performance')
 
-const input = require('fs').readFileSync("./inputs/day3.txt").toString()
+const input = require('fs').readFileSync("./inputs/day3.txt").toString().split("\n")
 
 // Part 1
 
 const calculateMatrix = (input) => {
   let matrix = []
-  input.split("\n").forEach((line) => {
-    [id, _, coords, size] = line.split(' ');
-    [positionX, positionY] = coords.slice(0, -1).split(',').map(num => Number(num));
-    [width, height] = size.split('x').map(num => Number(num));
-
+  input.forEach(([_, positionX, positionY, width, height]) => {
     for (y = positionY; y < positionY + height; y++) {
       for (x = positionX; x < positionX + width; x++) {
         if (!matrix[y]) { matrix[y] = [] }
@@ -34,11 +30,7 @@ const calculateMatrix = (input) => {
 
 const findNonOverlapping = (matrix, input) => {
   let lonelyId = undefined
-  input.split("\n").forEach((line) => {
-    [id, _, coords, size] = line.split(' ');
-    [positionX, positionY] = coords.slice(0, -1).split(',').map(num => Number(num));
-    [width, height] = size.split('x').map(num => Number(num));
-
+  input.forEach(([id, positionX, positionY, width, height]) => {
     let claimedOnce = true
 
     for (y = positionY; y < positionY + height; y++) {
@@ -53,8 +45,16 @@ const findNonOverlapping = (matrix, input) => {
 
 // Results
 Start()
-const {overlappingSquares, matrix} = calculateMatrix(input) 
-const nonOverlapping = findNonOverlapping(matrix, input)
+
+const instructions = input.map((line) => {
+  [_, id, positionX, positionY, width, height] = line
+    .match(/#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/)
+    .map((num) => Number(num))
+  return [id, positionX, positionY, width, height]
+})
+
+const {overlappingSquares, matrix} = calculateMatrix(instructions) 
+const nonOverlapping = findNonOverlapping(matrix, instructions)
 console.log("Overlapping squares: " + overlappingSquares)
 console.log("Lonely id: " + nonOverlapping)
 End()
