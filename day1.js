@@ -1,6 +1,5 @@
 const {Start, End} = require('./lib/performance')
 
-Start()
 const input = require('fs').readFileSync("./inputs/day1.txt").toString()
 const steps = input.split(/\n/)
 
@@ -9,6 +8,7 @@ let log = [0]
 let final = undefined
 let matched = undefined
 
+Start()
 while (matched == null) {
   steps.forEach(step => {
     frequency = eval(frequency + step)

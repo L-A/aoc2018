@@ -45,12 +45,9 @@ const findSimilarBoxCharacters = (list) => {
 }
 
 // Results
-const { performance } = require('perf_hooks');
-
 Start()
 const checksum = boxesMatchingAmount(boxes, 2) * boxesMatchingAmount(boxes, 3)
 const matchingCharacters = findSimilarBoxCharacters(boxes).join("")
-
 console.log("Checksum: " + checksum)
 console.log("Matching characters: " + matchingCharacters)
 End()
