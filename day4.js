@@ -18,7 +18,7 @@ const getSleepStats = (schedule) => {
       currentGuard = event.substr(1)
       if (!guards[currentGuard]) {
         guards[currentGuard] = {
-          schedule: [...Array(59)].map((_) => 0)
+          schedule: [...Array(60)].map((_) => 0)
         }
       } 
     }
