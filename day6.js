@@ -64,13 +64,15 @@ const highestClaim = (grid) => {
 
 // Part 2
 
-const safeZoneTally = (grid, limit, locations) => 
-  grid.reduce((tally, column, x) =>
-    tally + column.reduce((columnTally, _, y) =>
-      columnTally + Number(locations.reduce((cellTotal, location) =>
-        cellTotal + manhattanDistance(location, {x, y}), 0) < limit)
-    , 0)
-  , 0)
+const safeZoneTally = (grid, limit, locations) => {
+  return grid.reduce((tally, column, x) => {
+    return tally + column.reduce((columnTally, _, y) => {
+      return columnTally + Number(limit > locations.reduce((cellTotal, location) => {
+        return cellTotal + manhattanDistance(location, {x, y})
+      }, 0))
+    }, 0)
+  }, 0)
+}
 
 // Results
 
