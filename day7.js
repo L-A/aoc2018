@@ -60,13 +60,14 @@ const solvePath = (requirements, workers = 5, stepBaseTime = 60) => {
 
     // Find any next step that's without blockers and not already running
     let nextSteps = Object.keys(steps)
-    .filter(x => steps[x].blockers.length == 0).sort()
+    .filter(x => steps[x].blockers.length == 0)
     .filter(x => !solution.includes(x) && !steps[x].hasWorker)
+    .sort()
 
-    // If there are workers, start the next available (& alphabetical) step
+    // As long as there are workers, start the next available (& alphabetical) step
     while (nextSteps.length > 0 && workers) {
-      let stepName = nextSteps.shift()
       workers--
+      let stepName = nextSteps.shift()
       steps = startStep(stepName, steps, stepBaseTime)
     }
 
