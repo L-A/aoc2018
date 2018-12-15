@@ -45,15 +45,14 @@ map.forEach((line, y) => {
   })
 })
 
-const xSort = (a,b) => a.x > b.x
-const ySort = (a,b) => a.y > b.y
+const cartSort = (a,b) => (a.y - b.y) * 1000 + a.x - b.x
 
 // Part 1
 
 const tick = (map, carts) => {
   let _carts = carts.map(a => Object.assign({}, a))
   let collision = false
-  _carts.sort(ySort).sort(xSort).forEach((cart, cartIndex) => {
+  _carts.sort(cartSort).forEach((cart, cartIndex) => {
     cart.x += cart.direction.x
     cart.y += cart.direction.y
 
@@ -61,9 +60,7 @@ const tick = (map, carts) => {
       if (cartIndex == j) continue
       let cartB = _carts[j]
       if (cart.x == cartB.x && cart.y == cartB.y) {
-        console.log("Collision at " + cart.x + ", " + cart.y)
         if (!collision) collision = {x: cart.x, y: cart.y}
-        console.log(_carts.map(x => x.x + ", " + x.y))
         if (cartIndex < j) {
           _carts.splice(j, 1)
           _carts.splice(cartIndex, 1)
